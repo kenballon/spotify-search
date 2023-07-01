@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript | Exercise 1</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+            height: 100%;
+        }
+
+        button {
+            position: relative;
+            overflow: hidden;
+            transition: background 400ms;
+            color: #fff;
+            background-color: #6200ee;
+            padding: 1rem 2rem;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.5rem;
+            outline: 0;
+            border: 0;
+            border-radius: 0.25rem;
+            box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+
+        span.ripple {
+            position: absolute;
+            /* The absolute position we mentioned earlier */
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 600ms linear;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="close" class="modal-floater-close-btn">Close</div>
+    <div class="modal-body">
+    </div>
+    <main class="scrollContainer">
+
+        <section class="container my-4">
+            <article class="test-pattern my-3">
+                <h1 style="font-size: clamp(24px, 4vw, 72px);color:#333;">Spotify API Search Feature</h1>
+            </article>
+            <article class="users">
+                <h2 class="mb-2">Async, Await Fetch JS</h2>
+                <div id="user-block" class="d-grid grid-col-auto-fit gap-1"></div>
+            </article>
+        </section>
+        <section class="container my-4 py-4">
+            <div class="form-search-res-wrapper">
+                <form>
+                    <label for="search-songs" class="d-block">Search: </label>
+                    <input type="text" name="search-songs" id="search-input-text" class="search-text-input width-100"
+                        autocomplete="off">
+                </form>
+
+                <ul id="search-results-here">
+
+                </ul>
+            </div>
+
+        </section>
+
+        <section class="container py-4">
+            <h2>CSS Grid: Grid Template Areas</h2>
+            <div class="grid-sample d-grid">
+                <div class="area-name grid-one">
+                    <h4>Grid One</h4>
+                </div>
+                <div class="area-name grid-two">
+                    <h4>Grid Two</h4>
+                </div>
+                <div class="area-name grid-three">
+                    <h4>Grid Three</h4>
+                </div>
+                <div class="area-name grid-four">
+                    <h4>Grid Four</h4>
+                </div>
+                <div class="area-name grid-five">
+                    <h4>Grid Five</h4>
+                </div>
+                <div class="area-name grid-six">
+                    <h4>Grid Six</h4>
+                </div>
+            </div>
+        </section>
+
+        <section class="container py-4 my-5">
+            <h2 style="font-size: clamp(24px, 4vw, 56px);color:#333;margin-bottom: 2rem;line-height: 1.2;">CSS Card
+                Stacking
+                Effect
+            </h2>
+            <div class="sticky-cards-wrapper d-flex flex-direction-col">
+                <div class="cards-sticky one">
+                    <div class="cards-sticky_text-content">
+                        <h2>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, nam.</h2>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos dolores delectus sequi amet?
+                            Laudantium soluta iusto, error est expedita aspernatur hic quasi veniam recusandae, ullam,
+                            corporis totam? Tempora provident animi impedit amet beatae natus eum ipsum, molestias
+                            corporis
+                            quas? Mollitia ipsum dolore hic, nobis, placeat veniam, molestias ipsa quam quod
+                            reprehenderit
+                            a? Mollitia, labore pariatur aliquam reprehenderit praesentium vel nemo?</p>
+                        <button>Send</button>
+                    </div>
+                </div>
+                <div class="cards-sticky two">
+                    <div class="cards-sticky_text-content">
+                        <h2>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, nam.</h2>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos dolores delectus sequi amet?
+                            Laudantium soluta iusto, error est expedita aspernatur hic quasi veniam recusandae, ullam,
+                            corporis totam? Tempora provident animi impedit amet beatae natus eum ipsum, molestias
+                            corporis
+                            quas? Mollitia ipsum dolore hic, nobis, placeat veniam, molestias ipsa quam quod
+                            reprehenderit
+                            a? Mollitia, labore pariatur aliquam reprehenderit praesentium vel nemo?</p>
+                        <button>Send</button>
+                    </div>
+                </div>
+                <div class="cards-sticky three">
+                    <div class="cards-sticky_text-content">
+                        <h2>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, nam.</h2>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos dolores delectus sequi amet?
+                            Laudantium soluta iusto, error est expedita aspernatur hic quasi veniam recusandae, ullam,
+                            corporis totam? Tempora provident animi impedit amet beatae natus eum ipsum, molestias
+                            corporis
+                            quas? Mollitia ipsum dolore hic, nobis, placeat veniam, molestias ipsa quam quod
+                            reprehenderit
+                            a? Mollitia, labore pariatur aliquam reprehenderit praesentium vel nemo?</p>
+                        <button>Send</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="container py4 my-5">
+            <div style="height: 30vh;"></div>
+        </section>
+
+    </main>
+    <footer>
+        <div class=" store-token-hidden">
+            <h1>footer here</h1>
+        </div>
+    </footer>
+    <script src="scripts/index.js" type="module" defer></script>
+    <script src="scripts/main.js" type="module" defer></script>
+
+</body>
+
+</html>
