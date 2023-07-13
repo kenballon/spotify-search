@@ -247,3 +247,29 @@ const modalInnerCardMouseTrack = (modaInnerContent) => {
     floatingCloseBtn.classList.add("show");
   });
 };
+
+const newArr = [
+  {
+    name: "Dollar",
+    age: 22,
+  },
+  {
+    name: "Kenneth",
+    age: 37,
+  },
+  {
+    name: "Rio",
+    age: 28,
+  },
+];
+
+function reverseObj(arr) {
+  return arr.map((obj) =>
+    Object.entries(obj).reduce((acc, [key, val]) => {
+      acc[val] = key;
+      return acc;
+    }, {})
+  );
+}
+
+console.log(reverseObj(newArr));
