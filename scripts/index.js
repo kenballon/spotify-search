@@ -272,4 +272,20 @@ function reverseObj(arr) {
   );
 }
 
-console.log(reverseObj(newArr));
+function getRandomPastelColor() {
+  // Generate random values for R, G, and B in the pastel range
+  const r = Math.floor(Math.random() * 100) + 155; // R: 155-255
+  const g = Math.floor(Math.random() * 100) + 155; // G: 155-255
+  const b = Math.floor(Math.random() * 100) + 155; // B: 155-255
+
+  // Convert to hex format
+  const hexColor = "#" + r.toString(16) + g.toString(16) + b.toString(16);
+
+  return hexColor;
+}
+
+const divCardsSticky = document.querySelectorAll(".card-item-inner");
+
+divCardsSticky.forEach((card) => {
+  card.style.backgroundColor = getRandomPastelColor();
+});

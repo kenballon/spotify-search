@@ -4,6 +4,10 @@
   --ff-secondary: "Outfit", sans-serif;
   --border-color-theme-1: #381e72;
   --background-color: #eaddff;
+  --card-height: 40vw;
+  --card-margin: 4vw;
+  --card-top-offset: 2rem;
+  --outline-width: 0px;
 }
 
 /* Box sizing rules */
@@ -461,6 +465,10 @@ select {
   display: grid;
 }
 
+.grid-col {
+  grid-template-columns: 1fr;
+}
+
 .grid-col-auto-fit {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
@@ -487,6 +495,10 @@ select {
 
 .gap-1 {
   gap: 1rem;
+}
+
+.gap-2 {
+  gap: 2rem;
 }
 
 .width-100 {
@@ -587,12 +599,12 @@ select {
   padding: 1.2rem;
 }
 .grid-sample .area-name:nth-child(2n-1) {
-  background-image: url("../images/pexels-joshua-mcknight-15421140.jpg");
+  background-image: url("https://static.wixstatic.com/media/f81817_fa68d2d773b4474b99d64c49081e8259~mv2.jpg/v1/fit/w_2058,h_1938,q_90/f81817_fa68d2d773b4474b99d64c49081e8259~mv2.webp");
   background-size: cover;
   background-position: center;
 }
 .grid-sample .area-name:nth-child(2n-2) {
-  background-image: url("https:////im.vsco.co/aws-us-west-2/e43210/23174409/617e29ea2abb682a50000001/vsco617e29ee84b81.jpg?w=1280&dpr=2");
+  background-image: url("https://static.wixstatic.com/media/f81817_b4eb4ca4c64c42caac1a00fd31c849b5~mv2.jpg/v1/fit/w_2058,h_1938,q_90/f81817_b4eb4ca4c64c42caac1a00fd31c849b5~mv2.webp");
   background-size: cover;
   background-position: center;
 }
@@ -630,50 +642,6 @@ select {
     grid-template-areas: "gridOne" "gridTwo" "gridThree" "gridFour" "gridFive" "gridSix";
   }
 }
-.sticky-cards-wrapper {
-  position: relative;
-  gap: 3rem;
-  padding-bottom: 6.5rem;
-}
-.sticky-cards-wrapper .cards-sticky {
-  position: sticky;
-  min-height: calc(100vh - 15.625rem);
-  border-radius: 60px;
-  padding: 4rem;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-}
-.sticky-cards-wrapper .cards-sticky h2 {
-  font-size: 48px;
-  margin-bottom: 2rem;
-  width: 25ch;
-  line-height: 1.2;
-}
-.sticky-cards-wrapper .cards-sticky p {
-  font-size: 18px;
-  margin-bottom: 40px;
-  line-height: 1.5;
-  width: 60ch;
-  opacity: 0.8;
-}
-.sticky-cards-wrapper .cards-sticky.one {
-  top: 3rem;
-  margin-bottom: 6rem;
-  background-color: #a0f393;
-  border: 2px solid #205b17;
-}
-.sticky-cards-wrapper .cards-sticky.two {
-  top: 6rem;
-  margin-bottom: 3rem;
-  background-color: #fbf782;
-  border: 2px solid #64611a;
-}
-.sticky-cards-wrapper .cards-sticky.three {
-  top: 9rem;
-  margin-bottom: 0rem;
-  background-color: #ff9595;
-  border: 2px solid #6f1e1e;
-}
-
 #select-id,
 datalist {
   min-width: 400px;
@@ -806,4 +774,69 @@ datalist {
 footer {
   min-height: 50vh;
   border: 1px solid black;
+}
+
+#card_1 {
+  --index: 1;
+}
+
+#card_2 {
+  --index: 2;
+}
+
+#card_3 {
+  --index: 3;
+}
+
+.sticky-cards-list {
+  --numcards: 4;
+  view-timeline-name: --cards-element-scrolls-in-body;
+  list-style: none;
+  outline: calc(var(--outline-width) * 10) solid hotpink;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(var(--numcards), var(--card-height));
+  gap: var(--card-margin);
+  padding-bottom: calc(var(--numcards) * var(--card-top-offset));
+  margin-bottom: var(--card-margin);
+}
+.sticky-cards-list .card-item {
+  --index0: calc(var(--index) - 1);
+  --reverse-index: calc(var(--numcards) - var(--index0));
+  --reverse-index0: calc(var(--reverse-index) - 1);
+  position: sticky;
+  top: 0;
+  padding-top: calc(var(--index) * var(--card-top-offset));
+}
+.sticky-cards-list .card-item .card-item-inner {
+  --start-range: calc(var(--index0) / var(--numcards) * 100%);
+  --end-range: calc((var(--index)) / var(--numcards) * 100%);
+  animation: linear scaleSticky forwards;
+  animation-timeline: --cards-element-scrolls-in-body;
+  animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
+  transform-origin: 50% 0%;
+  will-change: transform;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+.sticky-cards-list .card-item .card-item-inner article {
+  padding: 2rem;
+  place-self: center;
+}
+.sticky-cards-list .card-item .card-item-inner article button {
+  width: -moz-max-content;
+  width: max-content;
+}
+.sticky-cards-list .card-item .card-item-inner figure img {
+  width: 100%;
+  aspect-ratio: 1;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+@keyframes scaleSticky {
+  to {
+    transform: scale(calc(1.1 - 0.1 * var(--reverse-index)));
+  }
 }/*# sourceMappingURL=style.css.map */
