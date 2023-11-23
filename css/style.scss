@@ -895,6 +895,7 @@ footer {
   grid-template-rows: repeat(var(--numcards), var(--card-height));
   gap: var(--card-margin);
   padding-bottom: calc(var(--numcards) * var(--card-top-offset));
+  padding-left: 0;
   margin-bottom: var(--card-margin);
 
   .card-item {
@@ -918,9 +919,7 @@ footer {
       will-change: transform;
       border-radius: 0.5rem;
       overflow: hidden;
-      box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
-        rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
 
       article {
         padding: 2rem;
@@ -942,4 +941,25 @@ footer {
   to {
     transform: scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
   }
+}
+
+// lenis css
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }

@@ -10,6 +10,7 @@ const floatingCloseBtn = document.querySelector(".modal-floater-close-btn");
 document.addEventListener("readystatechange", (e) => {
   if (e.target.readyState === "complete") {
     initApp();
+    smoothScrolling();
   }
 });
 
@@ -289,3 +290,16 @@ const divCardsSticky = document.querySelectorAll(".card-item-inner");
 divCardsSticky.forEach((card) => {
   card.style.backgroundColor = getRandomPastelColor();
 });
+
+const smoothScrolling = () => {
+  const lenis = new Lenis();
+
+  lenis.on("scroll", (e) => {});
+
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+
+  requestAnimationFrame(raf);
+};
