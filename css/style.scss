@@ -12,6 +12,27 @@
   --outline-width: 0px;
 }
 
+// lenis css
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
 /* Box sizing rules */
 
 *,
@@ -544,6 +565,22 @@ select {
   display: none !important;
 }
 
+/* text sizing */
+.text-2xl {
+  font-size: clamp(24px, 4vw, 56px);
+  color: #333;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.text-blend {
+  filter: invert(1);
+  mix-blend-mode: difference;
+}
+
+.overflow-x\:hidden {
+  overflow-x: hidden;
+}
 /*#endregion UTILITY CLASSES */
 
 .user-card-block {
@@ -721,6 +758,79 @@ select {
   }
 }
 
+// scroll sticky cards
+
+/* #region CARD STICKY CSS STYLING */
+#card_1 {
+  --index: 1;
+}
+#card_2 {
+  --index: 2;
+}
+#card_3 {
+  --index: 3;
+}
+
+.sticky-cards-list {
+  --numcards: 4;
+  view-timeline-name: --cards-element-scrolls-in-body;
+  list-style: none;
+  outline: calc(var(--outline-width) * 10) solid hotpink;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(var(--numcards), var(--card-height));
+  gap: var(--card-margin);
+  padding-bottom: calc(var(--numcards) * var(--card-top-offset));
+  padding-left: 0;
+  margin-bottom: var(--card-margin);
+
+  .card-item {
+    --index0: calc(var(--index) - 1);
+    --reverse-index: calc(var(--numcards) - var(--index0));
+    --reverse-index0: calc(var(--reverse-index) - 1);
+    position: sticky;
+    top: 0;
+    padding-top: calc(var(--index) * var(--card-top-offset));
+
+    .card-item-inner {
+      --start-range: calc(var(--index0) / var(--numcards) * 100%);
+      --end-range: calc((var(--index)) / var(--numcards) * 100%);
+
+      animation: linear scaleSticky forwards;
+      animation-timeline: --cards-element-scrolls-in-body;
+      animation-range: exit-crossing var(--start-range) exit-crossing
+        var(--end-range);
+
+      transform-origin: 50% 0%;
+      will-change: transform;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+
+      article {
+        padding: 2rem;
+        place-self: center;
+        button {
+          width: max-content;
+        }
+      }
+      figure img {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+@keyframes scaleSticky {
+  to {
+    transform: scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
+  }
+}
+
+/* #endregion CARD STICKY CSS STYLING */
+
 #select-id,
 datalist {
   min-width: 400px;
@@ -870,96 +980,79 @@ datalist {
   display: flex;
 }
 
-footer {
-  min-height: 50vh;
-  border: 1px solid black;
-}
+/* #region HORIZONTAL SCROLLING PURE CSS */
 
-#card_1 {
-  --index: 1;
-}
-#card_2 {
-  --index: 2;
-}
-#card_3 {
-  --index: 3;
-}
+.horizontal-scroll-section {
+  #sectionPin {
+    /* Stretch it out, so that we create room for the horizontal scroll animation */
+    height: 500vh;
+    overflow: visible; /* To make position sticky work … */
 
-.sticky-cards-list {
-  --numcards: 4;
-  view-timeline-name: --cards-element-scrolls-in-body;
-  list-style: none;
-  outline: calc(var(--outline-width) * 10) solid hotpink;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(var(--numcards), var(--card-height));
-  gap: var(--card-margin);
-  padding-bottom: calc(var(--numcards) * var(--card-top-offset));
-  padding-left: 0;
-  margin-bottom: var(--card-margin);
+    view-timeline-name: --section-pin-tl;
+    view-timeline-axis: block;
 
-  .card-item {
-    --index0: calc(var(--index) - 1);
-    --reverse-index: calc(var(--numcards) - var(--index0));
-    --reverse-index0: calc(var(--reverse-index) - 1);
-    position: sticky;
-    top: 0;
-    padding-top: calc(var(--index) * var(--card-top-offset));
+    .pin-wrap-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100vw;
+      overflow-x: hidden;
+      background-color: #3a1700;
 
-    .card-item-inner {
-      --start-range: calc(var(--index0) / var(--numcards) * 100%);
-      --end-range: calc((var(--index)) / var(--numcards) * 100%);
+      .pin-wrap {
+        position: relative;
+        height: 100vh;
+        width: max-content;
 
-      animation: linear scaleSticky forwards;
-      animation-timeline: --cards-element-scrolls-in-body;
-      animation-range: exit-crossing var(--start-range) exit-crossing
-        var(--end-range);
+        display: flex;
+        align-items: center;
+        padding: 3rem;
+        gap: 1.5rem;
 
-      transform-origin: 50% 0%;
-      will-change: transform;
-      border-radius: 0.5rem;
-      overflow: hidden;
-      box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+        /* Hook animation */
+        will-change: transform;
+        animation: linear scrollLeft forwards;
 
-      article {
-        padding: 2rem;
-        place-self: center;
-        button {
-          width: max-content;
+        /* Link animation to view-timeline */
+        animation-timeline: --section-pin-tl;
+        animation-range: contain 0% contain 100%;
+
+        .headline-wrapper h2 {
+          width: 80%;
+          text-wrap: balance;
         }
-      }
-      figure img {
-        width: 100%;
-        aspect-ratio: 1;
-        object-fit: cover;
+
+        .imgs-wrapper {
+          position: relative;
+          overflow: hidden;
+          height: 100%;
+          gap: 2rem;
+          align-items: center;
+          figure {
+            img {
+              width: 800px;
+              height: 800px;
+              object-fit: cover;
+              border-radius: 4px;
+            }
+          }
+        }
       }
     }
   }
 }
 
-@keyframes scaleSticky {
+@keyframes scrollLeft {
   to {
-    transform: scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
+    /* Move horizontally so that right edge is aligned against the viewport */
+    transform: translateX(calc(-100% + 100vw));
+    left: 0px;
   }
 }
 
-// lenis css
-html.lenis {
-  height: auto;
-}
+/* #endregion HORIZONTAL SCROLLING PURE CSS */
 
-.lenis.lenis-smooth {
-  scroll-behavior: auto;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-.lenis.lenis-scrolling iframe {
-  pointer-events: none;
+footer {
+  min-height: 50vh;
+  border: 1px solid black;
 }

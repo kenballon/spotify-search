@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
 :root {
   --ff-primary: "Plus Jakarta Sans", sans-serif;
@@ -8,6 +9,26 @@
   --card-margin: 4vw;
   --card-top-offset: 2rem;
   --outline-width: 0px;
+}
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 /* Box sizing rules */
@@ -525,6 +546,23 @@ select {
   display: none !important;
 }
 
+/* text sizing */
+.text-2xl {
+  font-size: clamp(24px, 4vw, 56px);
+  color: #333;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.text-blend {
+  filter: invert(1);
+  mix-blend-mode: difference;
+}
+
+.overflow-x\:hidden {
+  overflow-x: hidden;
+}
+
 /*#endregion UTILITY CLASSES */
 .user-card-block {
   background-color: hsl(259, 89%, 93%);
@@ -642,6 +680,73 @@ select {
     grid-template-areas: "gridOne" "gridTwo" "gridThree" "gridFour" "gridFive" "gridSix";
   }
 }
+/* #region CARD STICKY CSS STYLING */
+#card_1 {
+  --index: 1;
+}
+
+#card_2 {
+  --index: 2;
+}
+
+#card_3 {
+  --index: 3;
+}
+
+.sticky-cards-list {
+  --numcards: 4;
+  view-timeline-name: --cards-element-scrolls-in-body;
+  list-style: none;
+  outline: calc(var(--outline-width) * 10) solid hotpink;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(var(--numcards), var(--card-height));
+  gap: var(--card-margin);
+  padding-bottom: calc(var(--numcards) * var(--card-top-offset));
+  padding-left: 0;
+  margin-bottom: var(--card-margin);
+}
+.sticky-cards-list .card-item {
+  --index0: calc(var(--index) - 1);
+  --reverse-index: calc(var(--numcards) - var(--index0));
+  --reverse-index0: calc(var(--reverse-index) - 1);
+  position: sticky;
+  top: 0;
+  padding-top: calc(var(--index) * var(--card-top-offset));
+}
+.sticky-cards-list .card-item .card-item-inner {
+  --start-range: calc(var(--index0) / var(--numcards) * 100%);
+  --end-range: calc((var(--index)) / var(--numcards) * 100%);
+  animation: linear scaleSticky forwards;
+  animation-timeline: --cards-element-scrolls-in-body;
+  animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
+  transform-origin: 50% 0%;
+  will-change: transform;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+}
+.sticky-cards-list .card-item .card-item-inner article {
+  padding: 2rem;
+  place-self: center;
+}
+.sticky-cards-list .card-item .card-item-inner article button {
+  width: -moz-max-content;
+  width: max-content;
+}
+.sticky-cards-list .card-item .card-item-inner figure img {
+  width: 100%;
+  aspect-ratio: 1;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+@keyframes scaleSticky {
+  to {
+    transform: scale(calc(1.1 - 0.1 * var(--reverse-index)));
+  }
+}
+/* #endregion CARD STICKY CSS STYLING */
 #select-id,
 datalist {
   min-width: 400px;
@@ -771,92 +876,66 @@ datalist {
   display: flex;
 }
 
+/* #region HORIZONTAL SCROLLING PURE CSS */
+.horizontal-scroll-section #sectionPin {
+  /* Stretch it out, so that we create room for the horizontal scroll animation */
+  height: 500vh;
+  overflow: visible; /* To make position sticky work … */
+  view-timeline-name: --section-pin-tl;
+  view-timeline-axis: block;
+}
+.horizontal-scroll-section #sectionPin .pin-wrap-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  background-color: #3a1700;
+}
+.horizontal-scroll-section #sectionPin .pin-wrap-sticky .pin-wrap {
+  position: relative;
+  height: 100vh;
+  width: -moz-max-content;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  padding: 3rem;
+  gap: 1.5rem;
+  /* Hook animation */
+  will-change: transform;
+  animation: linear scrollLeft forwards;
+  /* Link animation to view-timeline */
+  animation-timeline: --section-pin-tl;
+  animation-range: contain 0% contain 100%;
+}
+.horizontal-scroll-section #sectionPin .pin-wrap-sticky .pin-wrap .headline-wrapper h2 {
+  width: 80%;
+  text-wrap: balance;
+}
+.horizontal-scroll-section #sectionPin .pin-wrap-sticky .pin-wrap .imgs-wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  gap: 2rem;
+  align-items: center;
+}
+.horizontal-scroll-section #sectionPin .pin-wrap-sticky .pin-wrap .imgs-wrapper figure img {
+  width: 800px;
+  height: 800px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 4px;
+}
+
+@keyframes scrollLeft {
+  to {
+    /* Move horizontally so that right edge is aligned against the viewport */
+    transform: translateX(calc(-100% + 100vw));
+    left: 0px;
+  }
+}
+/* #endregion HORIZONTAL SCROLLING PURE CSS */
 footer {
   min-height: 50vh;
   border: 1px solid black;
-}
-
-#card_1 {
-  --index: 1;
-}
-
-#card_2 {
-  --index: 2;
-}
-
-#card_3 {
-  --index: 3;
-}
-
-.sticky-cards-list {
-  --numcards: 4;
-  view-timeline-name: --cards-element-scrolls-in-body;
-  list-style: none;
-  outline: calc(var(--outline-width) * 10) solid hotpink;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(var(--numcards), var(--card-height));
-  gap: var(--card-margin);
-  padding-bottom: calc(var(--numcards) * var(--card-top-offset));
-  padding-left: 0;
-  margin-bottom: var(--card-margin);
-}
-.sticky-cards-list .card-item {
-  --index0: calc(var(--index) - 1);
-  --reverse-index: calc(var(--numcards) - var(--index0));
-  --reverse-index0: calc(var(--reverse-index) - 1);
-  position: sticky;
-  top: 0;
-  padding-top: calc(var(--index) * var(--card-top-offset));
-}
-.sticky-cards-list .card-item .card-item-inner {
-  --start-range: calc(var(--index0) / var(--numcards) * 100%);
-  --end-range: calc((var(--index)) / var(--numcards) * 100%);
-  animation: linear scaleSticky forwards;
-  animation-timeline: --cards-element-scrolls-in-body;
-  animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
-  transform-origin: 50% 0%;
-  will-change: transform;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
-}
-.sticky-cards-list .card-item .card-item-inner article {
-  padding: 2rem;
-  place-self: center;
-}
-.sticky-cards-list .card-item .card-item-inner article button {
-  width: -moz-max-content;
-  width: max-content;
-}
-.sticky-cards-list .card-item .card-item-inner figure img {
-  width: 100%;
-  aspect-ratio: 1;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
-@keyframes scaleSticky {
-  to {
-    transform: scale(calc(1.1 - 0.1 * var(--reverse-index)));
-  }
-}
-html.lenis {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-.lenis.lenis-scrolling iframe {
-  pointer-events: none;
 }/*# sourceMappingURL=style.css.map */

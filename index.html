@@ -47,7 +47,7 @@
     </style>
 </head>
 
-<body>
+<body class="overflow-x:hidden">
     <div id="close" class="modal-floater-close-btn">Close</div>
     <div class="modal-body">
     </div>
@@ -70,7 +70,7 @@
                         autocomplete="off">
                 </form>
 
-                <ul id="search-results-here">
+                <ul id="search-results-here" data-lenis-prevent>
 
                 </ul>
             </div>
@@ -102,7 +102,7 @@
         </section>
 
         <section class="container py-4 my-5">
-            <h2 style="font-size: clamp(24px, 4vw, 56px);color:#333;margin-bottom: 2rem;line-height: 1.2;">CSS Card
+            <h2 class="text-2xl">CSS Card
                 Stacking
                 Effect
             </h2>
@@ -156,16 +156,48 @@
         </section>
 
 
-        <section class="container py4 my-5">
-            <div style="height: 30vh;"></div>
+        <section class="horizontal-scroll-section py4 my-5">
+            <div class="section-headline container">
+                <h2 class="text-2xl my-6">Horizontal Scrolling with Pure CSS</h2>
+            </div>
+            <div id="sectionPin">
+                <div class="pin-wrap-sticky">
+                    <div class="pin-wrap">
+                        <article class="headline-wrapper d-grid">
+                            <h2 class="text-2xl text-blend">The Beauty of Taking Portraits</h2>
+                        </article>
+                        <div class="imgs-wrapper d-flex">
+                            <figure>
+                                <img src="https://format.creatorcdn.com/fe5aed00-bbd5-4e5c-92e6-a6e7cefcca3f/0/0/0/0,0,2500,1875,2500,1200/0-0-0/bf4b36d0-06d8-4adb-b7f3-7341b3eee6d8/1/1/PT400_0620_23-final.jpg?fjkss=exp=2016079434~hmac=b35fcd7f9ab0ba3adf11163b027bdf9f3b5c6f0aa0fee94e5cd7cdeb02bb52e7"
+                                    alt="">
+                            </figure>
+                            <figure>
+                                <img src="https://format.creatorcdn.com/fe5aed00-bbd5-4e5c-92e6-a6e7cefcca3f/0/0/0/0,0,1998,2500,1600,2500/0-0-0/ce94f46c-39a2-4dbc-b7aa-91c808ee7e6b/1/1/PT400_3814_08-1st.jpg?fjkss=exp=2016079434~hmac=03717da15051547faef2e96c58634726ce5323f2057c0a4f92602665bad6f4ed"
+                                    alt="">
+                            </figure>
+                            <figure>
+                                <img src="https://images.squarespace-cdn.com/content/v1/5446d0aee4b0c623265fea2d/1673632696722-8TFBH3KTEQE18ETHOZ4G/20220117-IMG_8437+copy.jpg"
+                                    alt="">
+                            </figure>
+                            <figure>
+                                <img src="https://images.squarespace-cdn.com/content/v1/5446d0aee4b0c623265fea2d/1542631322133-YI2T0R4WHKBDRSGTRLVU/20181029-IMG_1469.jpg"
+                                    alt="">
+                            </figure>
+                            <figure>
+                                <img src="https://images.squarespace-cdn.com/content/v1/5446d0aee4b0c623265fea2d/1581604309450-YIAJ70TEDHFIWEAINCB7/20200210-IMG_1818.jpgaa.jpg"
+                                    alt="">
+                            </figure>
+                            <figure>
+                                <img src="https://format.creatorcdn.com/fe5aed00-bbd5-4e5c-92e6-a6e7cefcca3f/0/0/0/0,0,2660,3327,1600,3327/0-0-0/45fa9aa1-e570-469f-83c4-acf0820f390f/1/1/PT400_1605_05.jpg?fjkss=exp=2016079434~hmac=4ac958690b9bf1285e80cdfb674dfda26e2724a8dc9ae19139d5845fa825cc10"
+                                    alt="">
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
     </main>
-    <footer>
-        <div class=" store-token-hidden">
-            <h1>footer here</h1>
-        </div>
-    </footer>
     <script src="scripts/index.js" type="module" defer></script>
     <script src="scripts/main.js" type="module" defer></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.28/bundled/lenis.min.js"></script>
