@@ -292,7 +292,9 @@ divCardsSticky.forEach((card) => {
 });
 
 const smoothScrolling = () => {
-  const lenis = new Lenis();
+  const lenis = new Lenis({
+    lerp: 0.08,
+  });
 
   lenis.on("scroll", (e) => {});
 
